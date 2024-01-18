@@ -9,12 +9,12 @@ from werkzeug.utils import secure_filename
 import mysql.connector as c 
 import json
 
-con=c.connect(host='localhost',user='root',passwd='argahsuk@hgnis',database='flask_models')
+con=c.connect(host='localhost',user='root',passwd='your_password',database='your_DB')
 cursor=con.cursor()
 
 # Create flask app
 flask_app = Flask(__name__)
-model = tf.keras.models.load_model(r"C:\Users\91811\Desktop\ml with web\final_model.h5")
+model = tf.keras.models.load_model(r"your_model_path")
 
 # Configure the upload folder
 upload_folder = 'uploads'
