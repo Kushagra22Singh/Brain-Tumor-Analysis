@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Prediction</title>
+    <style>
+        body {
+            background-color: #cbcca5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #4b0082;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2.5em;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input {
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4b0082;
+            border-radius: 5px;
+            width: 60%;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #4b0082;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 60%;
+        }
+
+        .prediction-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 20px;
+            color: #ad10b0;
+            font-size: 1.5em;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 70vh;
+            margin-top: 20px;
+        }
+
+        img {
+            width: 300px;
+            height: 300px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>CONVOLUTION NEURAL NETWORK TO PREDICT BRAIN TUMOR</h1>
+    </div>
+    <div>
+        <form action="{{ url_for('predict')}}" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".jpg, .jpeg, .png" required="required" />
+            <button type="submit">Predict</button>
+        </form>
+
+        <div class="prediction-container">
+            {{ prediction_text }}
+        </div>
+
+        <div class="image-container">
+            {% if 'Tumor Detected' in prediction_text %}
+            <img src="{{ url_for('static', filename='tumor_image.jpg') }}" alt="Tumor Detected">
+            {% elif 'No Tumor Detected' in prediction_text %}
+            <img src="{{ url_for('static', filename='no_tumor_image.jpg') }}" alt="No Tumor Detected">
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
